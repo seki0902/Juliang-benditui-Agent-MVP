@@ -1,0 +1,7 @@
+interface:
+  display_name: "抖音本地推数据分析"
+  short_description: "按抖音本地推规范诊断投放数据、预算出价和优化建议"
+  default_prompt: "Use $douyin-local-push-analysis to diagnose a Douyin Local Push account report and recommend next actions."
+
+policy:
+  allow_implicit_invocation: true

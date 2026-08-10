@@ -1,0 +1,23 @@
+# Raw business data
+*.xlsx
+*.xls
+*.csv
+*.tsv
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.bmp
+
+# Local/editor files
+.idea/
+.vscode/
+.superpowers/
+__pycache__/
+*.pyc
+
+# Generated outputs
+outputs/
+agent/outputs/
+agent/data/raw/
+agent/data/processed/
