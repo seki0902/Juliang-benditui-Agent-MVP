@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "execution_mode": "confirmation_required",
+  "max_budget_change_ratio": 0.1,
+  "pause_rule": {
+    "minimum_consecutive_spend_days": 3,
+    "maximum_platform_leads": 0,
+    "requires_human_confirmation": true
+  },
+  "single_day_anomaly": {
+    "allowed_operations": ["decrease_budget"],
+    "forbidden_operations": ["pause_plan", "increase_budget"],
+    "requires_human_confirmation": true
+  },
+  "all_operations_require_human_confirmation": true,
+  "on_page_mismatch": "stop_without_change"
+}

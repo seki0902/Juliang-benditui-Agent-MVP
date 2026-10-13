@@ -1,0 +1,207 @@
+schema_version: golden_case.v1
+case_id: case-003-high-ctr-low-valid
+date: 2026-09-18
+description: "账户 2 在 2026-08-25 至 2026-08-27 的完整三日窗口；账户整体有效率尚可，但脱敏计划和素材 CTR 高于账户、有效线索率低于 40%。"
+
+input_snapshot:
+  account:
+    account_id: account-b
+    source_reference: "真实账户导出 / 账户 2 / 单元与视频明细"
+    report_date: 2026-09-18
+    observation_window: "2026-08-25/2026-08-27"
+    window_days: 3
+    grain: "账户汇总；计划与素材按日明细后聚合"
+    data_scope: "真实账户导出，平台 ID、计划名和素材名已脱敏"
+    spend: 17399.04
+    impressions: 331122
+    clicks: 3435
+    ctr_pct: 1.0374
+    leads: 127
+    valid_leads: 55
+    valid_lead_rate_pct: 43.3071
+    cpl: 137.0003
+    valid_lead_cost: 316.3462
+    private_intent: 3
+    daily_metrics:
+      - date: 2026-08-25
+        spend: 5634.65
+        impressions: 107726
+        clicks: 1208
+        ctr_pct: 1.1214
+        leads: 49
+        valid_leads: 21
+        valid_lead_rate_pct: 42.8571
+        cpl: 114.9929
+        valid_lead_cost: 268.3167
+      - date: 2026-08-26
+        spend: 6747.92
+        impressions: 134980
+        clicks: 1345
+        ctr_pct: 0.9964
+        leads: 44
+        valid_leads: 19
+        valid_lead_rate_pct: 43.1818
+        cpl: 153.3618
+        valid_lead_cost: 355.1537
+      - date: 2026-08-27
+        spend: 5016.47
+        impressions: 88416
+        clicks: 882
+        ctr_pct: 0.9976
+        leads: 34
+        valid_leads: 15
+        valid_lead_rate_pct: 44.1176
+        cpl: 147.5432
+        valid_lead_cost: 334.4313
+    missing_fields:
+      - contacted_leads_by_object
+      - contact_rate_by_object
+      - deal_count
+      - revenue
+      - creative_transcript
+  plans:
+    - plan_id: plan-b-01
+      source_label: high_ctr_zero_valid_plan
+      campaign_type: short_video
+      delivery_type: broad
+      spend: 939.22
+      spend_share_pct: 5.3981
+      impressions: 23142
+      clicks: 458
+      ctr_pct: 1.9791
+      ctr_multiple_vs_account: 1.9078
+      leads: 5
+      valid_leads: 0
+      valid_lead_rate_pct: 0.0
+      cpl: 187.844
+      valid_lead_cost: null
+      private_intent: 0
+    - plan_id: plan-b-02
+      source_label: high_ctr_low_valid_peer
+      campaign_type: short_video
+      delivery_type: broad
+      spend: 3015.43
+      spend_share_pct: 17.3308
+      impressions: 117278
+      clicks: 1860
+      ctr_pct: 1.586
+      ctr_multiple_vs_account: 1.5283
+      leads: 23
+      valid_leads: 7
+      valid_lead_rate_pct: 30.4348
+      cpl: 131.1057
+      valid_lead_cost: 430.7757
+      private_intent: 0
+    - plan_id: plan-b-03
+      source_label: stable_quality_peer
+      campaign_type: short_video
+      delivery_type: broad
+      spend: 7320.71
+      spend_share_pct: 42.0755
+      impressions: 106625
+      clicks: 566
+      ctr_pct: 0.5308
+      ctr_multiple_vs_account: 0.5116
+      leads: 57
+      valid_leads: 26
+      valid_lead_rate_pct: 45.614
+      cpl: 128.4335
+      valid_lead_cost: 281.5658
+      private_intent: 0
+  materials:
+    - material_id: material-b-01
+      source_label: high_ctr_low_valid_material
+      spend: 1184.53
+      spend_share_pct: 6.808
+      impressions: 46745
+      clicks: 795
+      ctr_pct: 1.7007
+      ctr_multiple_vs_account: 1.5815
+      leads: 10
+      valid_leads: 2
+      valid_lead_rate_pct: 20.0
+      cpl: 118.453
+      valid_lead_cost: 592.265
+      private_intent: 0
+    - material_id: material-b-02
+      source_label: stable_quality_material
+      spend: 9261.99
+      spend_share_pct: 53.2313
+      impressions: 133708
+      clicks: 692
+      ctr_pct: 0.5175
+      ctr_multiple_vs_account: 0.4987
+      leads: 75
+      valid_leads: 35
+      valid_lead_rate_pct: 46.6667
+      cpl: 123.4932
+      valid_lead_cost: 264.6283
+      private_intent: 3
+    - material_id: material-b-03
+      source_label: high_ctr_normal_quality_peer
+      spend: 510.99
+      spend_share_pct: 2.937
+      impressions: 18572
+      clicks: 302
+      ctr_pct: 1.6261
+      ctr_multiple_vs_account: 1.5672
+      leads: 6
+      valid_leads: 3
+      valid_lead_rate_pct: 50.0
+      cpl: 85.165
+      valid_lead_cost: 170.33
+      private_intent: 0
+  lead_quality:
+    total_leads: 127
+    valid_leads: 55
+    valid_lead_rate_pct: 43.3071
+    valid_lead_definition: "导出字段：确认意向数（计费时间）/ 线索留资数（计费时间）"
+    contacted_leads: null
+    contacted_rate_pct: null
+    sales_feedback_available: false
+    missing_fields:
+      - contacted_leads_by_object
+      - sales_follow_up_status
+      - deal_count
+      - revenue
+  content_assets:
+    - material_id: material-b-01
+      content_available: false
+      asset_text: null
+      review_reason: "素材 CTR 1.7007% 高于账户 1.0374%，但确认意向率仅 20.0%；需要审核真实 Hook、承诺和筛选表达。"
+
+human_analysis:
+  important_observations:
+    - "账户整体三日有效率为 43.3071%，高于 40% 风险线，但 plan-b-01 有 5 条线索、0 条确认意向。"
+    - "plan-b-01 CTR 为 1.9791%，约为账户 CTR 的 1.91 倍；material-b-01 CTR 为 1.7007%，但有效率仅 20.0%。"
+    - "material-b-01 的表面 CPL 为 118.453，但有效线索成本为 592.265，约为账户有效线索成本的 1.87 倍。"
+  likely_diagnosis:
+    - "这是点击层表现较好、有效线索层明显变差的漏斗断点，可能涉及低意向人群吸引、承诺与承接不一致，或后续筛选/跟进口径。"
+    - "账户整体不应被一刀切暂停；应隔离 plan-b-01 与 material-b-01，和稳定质量对象做对照。"
+  content_review_needed: true
+  strategy_direction:
+    - "Control risk：不对 plan-b-01 或 material-b-01 放量，先核验素材承诺、表单筛选和有效线索回传。"
+    - "保留账户级稳定对象作为对照；若低有效率在补充窗口持续，优先替换或降权该方向。"
+    - "内容审核只能基于补充的真实视频/口播文本，不能从素材名反推文案。"
+  cannot_conclude:
+    - "没有视频、口播稿和逐条销售反馈，不能判断究竟是 Hook、承诺、定向还是跟进造成低有效率。"
+    - "账户整体有 43.3071% 有效率，不能把局部对象直接外推为全账户失效。"
+
+expected_behavior:
+  should_call:
+    - supervisor
+    - data_analysis
+    - ads_diagnosis
+    - content_review
+    - strategy
+  should_not_call: []
+  acceptable_routes:
+    - "supervisor -> data_analysis -> supervisor -> ads_diagnosis -> supervisor -> content_review -> supervisor -> strategy -> supervisor -> finish"
+    - "supervisor -> data_analysis -> supervisor -> ads_diagnosis -> supervisor -> strategy -> supervisor -> finish"
+  forbidden_outputs:
+    - budget_change
+    - bid_change
+    - pause_plan
+    - scale_percentage
+    - execution_status
+    - backend_action

@@ -9,6 +9,10 @@
 *.webp
 *.bmp
 
+# Screen recordings and other large local media
+*.mp4
+*.mov
+
 # Local/editor files
 .idea/
 .vscode/
@@ -16,8 +20,51 @@
 __pycache__/
 *.pyc
 
-# Generated outputs
+# Generated outputs and local state
 outputs/
-agent/outputs/
-agent/data/raw/
-agent/data/processed/
+**/outputs/
+**/output/
+**/state/
+**/data/raw/
+**/data/processed/
+*.sqlite3
+*.sqlite
+
+# Bundled runtimes are installed, not source. Without these the first commit
+# would have swept in ~12k files of node_modules under 本地推运营Agent_V1.
+**/runtime/
+**/node_modules/
+**/.playwright-cli/
+
+# Credentials, tokens, and live browser session data.
+# agent/.env.txt holds DEEPSEEK_API_KEY, so the .env.* pattern is required:
+# the previous rule only covered a bare "agent/.env" and would have let the
+# real key into history. Patterns are prefix-free so the V1 tree is covered too.
+**/.env
+**/.env.*
+**/.env.txt
+!**/config.example.env
+*.pem
+*.key
+*.p12
+*.pfx
+**/browser_download_config.json
+**/browser_download_config*.json
+!**/browser_download_config.example.json
+**/browser_execution_config.json
+**/shimo_sheet_config.json
+pushplus token.txt
+
+# Handoff docs and probe scripts that name a real account, project, or document.
+**/docs/BROWSER_LIVE_HANDOFF_*.md
+**/docs/HANDOFF_*.md
+**/docs/EXECUTION_CALIBRATION_*.md
+**/docs/Local_Growth_Agent_Handoff_*.md
+**/docs/LOCAL_REPLAY_PLAN.md
+**/docs/WECOM_PUSH_SETUP.md
+**/scripts/download_shimo_feedback.py
+**/scripts/inspect_shimo.py
+**/scripts/read_shimo_cells.py
+**/scripts/run_daily.ps1
+**/scripts/verify_shimo_write.py
+**/src/inspect_project_children.py

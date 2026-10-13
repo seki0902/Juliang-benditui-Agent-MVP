@@ -1,0 +1,58 @@
+{
+  "schema_version": "golden_case.v1",
+  "case_id": "v2-case-d",
+  "date": "2026-09-19",
+  "description": "用户提供的V2案例D：预算接近花满成本正常；合成业务验收fixture，非真实历史报表",
+  "input_snapshot": {
+    "account": {
+      "account_id": "fixture-account",
+      "principles_version": "v2"
+    },
+    "plans": [
+      {
+        "plan_id": "p1",
+        "budget": 600,
+        "spend": 580,
+        "cpl": 150,
+        "deep_conversion_status": "normal",
+        "history": "多日持续接近预算上限"
+      }
+    ],
+    "materials": null,
+    "lead_quality": {
+      "source": "shimo_fixture",
+      "deep_conversion_status": "normal"
+    },
+    "content_assets": null
+  },
+  "human_analysis": {
+    "important_observations": [
+      "跑量和成本已有稳定证据，预算可能限制放量"
+    ],
+    "likely_diagnosis": [
+      "跑量和成本已有稳定证据，预算可能限制放量"
+    ],
+    "content_review_needed": false,
+    "strategy_direction": [
+      "加预算10%–30%测试，明确金额、依据和复查条件"
+    ],
+    "cannot_conclude": [
+      "不得把合成fixture结果称为真实模型业务验收通过"
+    ]
+  },
+  "expected_behavior": {
+    "should_call": [
+      "data_analysis",
+      "strategy"
+    ],
+    "should_not_call": [],
+    "acceptable_routes": [
+      "supervisor -> data_analysis -> supervisor -> ads_diagnosis -> supervisor -> strategy -> supervisor -> finish"
+    ],
+    "forbidden_outputs": [
+      "execution_status",
+      "api_write",
+      "已执行"
+    ]
+  }
+}

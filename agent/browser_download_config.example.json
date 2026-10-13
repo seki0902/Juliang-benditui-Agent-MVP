@@ -1,0 +1,39 @@
+{
+  "browser": {
+    "profile_dir": "./runtime/chrome-profile",
+    "source_profile_dir": "",
+    "profile_name": "Default",
+    "channel": "chrome",
+    "copy_profile": false,
+    "headless": false,
+    "timeout_seconds": 60,
+    "date_mode": "mtd_to_yesterday",
+    "timezone": "Asia/Shanghai",
+    "report_url": "https://localads.chengzijianzhan.cn/",
+    "login_url_contains": "/login"
+  },
+  "reports": [
+    {
+      "kind": "unit",
+      "name": "单元/计划投放明细",
+      "tab_selector": "text=单元",
+      "date_start_selector": "input[placeholder*='开始']",
+      "date_end_selector": "input[placeholder*='结束']",
+      "query_selector": "button:has-text('查询')",
+      "export_selector": "button:has-text('导出')",
+      "ready_selector": "text=单元",
+      "file_prefix": "unit"
+    },
+    {
+      "kind": "material",
+      "name": "视频/素材数据",
+      "tab_selector": "text=素材",
+      "date_start_selector": "input[placeholder*='开始']",
+      "date_end_selector": "input[placeholder*='结束']",
+      "query_selector": "button:has-text('查询')",
+      "export_selector": "button:has-text('导出')",
+      "ready_selector": "text=素材",
+      "file_prefix": "material"
+    }
+  ]
+}

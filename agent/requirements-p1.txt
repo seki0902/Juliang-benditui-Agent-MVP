@@ -1,0 +1,11 @@
+-r requirements-p0.txt
+requests>=2.31
+psycopg[binary]>=3.1
+playwright>=1.50
+
+# Multi-Agent technical foundation; keep the model provider configurable.
+langgraph>=0.2
+langchain-core>=0.3
+langchain-openai>=0.3
+pydantic>=2.7
+pytest>=8.0

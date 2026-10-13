@@ -1,0 +1,212 @@
+schema_version: golden_case.v1
+case_id: case-006-lead-quality-unavailable
+date: 2026-09-18
+description: "账户 2 在 2026-09-15 至 2026-09-17 的窗口中获得 14 条平台线索和 11 条私信意向，平台 CPL 为 228.5714 元，但有效线索、跟进、成交和收入全部不可用。"
+
+input_snapshot:
+  account:
+    account_id: account-f
+    source_reference: "真实账户导出 / 账户 2 / 单元与视频明细 / 脱敏快照"
+    report_date: 2026-09-18
+    observation_window: "2026-09-15/2026-09-17"
+    window_days: 3
+    grain: "账户汇总；计划与素材按日明细后聚合"
+    data_scope: "真实账户导出，平台 ID、计划名和素材名已脱敏"
+    spend: 3200.0
+    impressions: 69097
+    clicks: 599
+    ctr_pct: 0.8669
+    leads: 14
+    valid_leads: null
+    valid_lead_rate_pct: null
+    cpl: 228.5714
+    valid_lead_cost: null
+    private_intent: 11
+    daily_metrics:
+      - date: 2026-09-15
+        spend: 1200.0
+        impressions: 30329
+        clicks: 293
+        ctr_pct: 0.9661
+        leads: 5
+        private_intent: 3
+        valid_leads: null
+        valid_lead_rate_pct: null
+        cpl: 240.0
+      - date: 2026-09-16
+        spend: 1000.0
+        impressions: 17436
+        clicks: 189
+        ctr_pct: 1.084
+        leads: 4
+        private_intent: 4
+        valid_leads: null
+        valid_lead_rate_pct: null
+        cpl: 250.0
+      - date: 2026-09-17
+        spend: 1000.0
+        impressions: 21332
+        clicks: 117
+        ctr_pct: 0.5485
+        leads: 5
+        private_intent: 4
+        valid_leads: null
+        valid_lead_rate_pct: null
+        cpl: 200.0
+    missing_fields:
+      - valid_leads
+      - valid_lead_rate_pct
+      - contacted_leads
+      - contact_rate
+      - qualified_leads
+      - deal_count
+      - revenue
+      - creative_transcript
+  plans:
+    - plan_id: plan-f-01
+      source_label: high_spend_partial_plan
+      campaign_type: short_video
+      delivery_type: broad
+      spend: 1303.19
+      spend_share_pct: 40.7247
+      impressions: 27639
+      clicks: 172
+      ctr_pct: 0.6223
+      leads: 6
+      private_intent: 5
+      valid_leads: null
+      valid_lead_rate_pct: null
+      cpl: 217.1983
+      valid_lead_cost: null
+      observed_days: 2
+      sample_note: "窗口内仅两天有记录，缺失日不能解释为计划暂停。"
+    - plan_id: plan-f-02
+      source_label: stable_peer_plan
+      campaign_type: short_video
+      delivery_type: broad
+      spend: 1106.02
+      spend_share_pct: 34.5631
+      impressions: 12498
+      clicks: 125
+      ctr_pct: 1.0002
+      leads: 6
+      private_intent: 5
+      valid_leads: null
+      valid_lead_rate_pct: null
+      cpl: 184.3367
+      valid_lead_cost: null
+      observed_days: 3
+    - plan_id: plan-f-03
+      source_label: no_lead_peer
+      campaign_type: short_video
+      delivery_type: broad
+      spend: 367.75
+      spend_share_pct: 11.4922
+      impressions: 11363
+      clicks: 105
+      ctr_pct: 0.9241
+      leads: 0
+      private_intent: 0
+      valid_leads: null
+      valid_lead_rate_pct: null
+      cpl: null
+      valid_lead_cost: null
+      observed_days: 3
+  materials:
+    - material_id: material-f-01
+      source_label: main_material
+      spend: 965.29
+      spend_share_pct: 30.1653
+      impressions: 8909
+      clicks: 64
+      ctr_pct: 0.7184
+      leads: 6
+      private_intent: 5
+      valid_leads: null
+      valid_lead_rate_pct: null
+      cpl: 160.8817
+      valid_lead_cost: null
+    - material_id: material-f-02
+      source_label: no_private_intent_material
+      spend: 371.94
+      spend_share_pct: 11.6231
+      impressions: 8327
+      clicks: 40
+      ctr_pct: 0.4804
+      leads: 1
+      private_intent: 1
+      valid_leads: null
+      valid_lead_rate_pct: null
+      cpl: 371.94
+      valid_lead_cost: null
+    - material_id: material-f-03
+      source_label: no_private_intent_peer
+      spend: 346.08
+      spend_share_pct: 10.815
+      impressions: 8497
+      clicks: 45
+      ctr_pct: 0.5296
+      leads: 1
+      private_intent: 0
+      valid_leads: null
+      valid_lead_rate_pct: null
+      cpl: 346.08
+      valid_lead_cost: null
+  lead_quality:
+    total_leads: 14
+    private_intent: 11
+    valid_leads: null
+    valid_lead_rate_pct: null
+    valid_lead_cost: null
+    valid_lead_definition: "导出字段：确认意向数（计费时间）/ 线索留资数（计费时间）"
+    contacted_leads: null
+    contacted_rate_pct: null
+    qualified_leads: null
+    won_deals: null
+    revenue: null
+    sales_feedback_available: false
+    missing_fields:
+      - valid_leads
+      - contacted_leads
+      - sales_follow_up_status
+      - qualified_leads
+      - won_deals
+      - revenue
+  content_assets: []
+
+human_analysis:
+  important_observations:
+    - "三日账户产生 14 条平台线索和 11 条私信意向，平台 CPL 为 228.5714 元，但有效线索率和有效线索成本为空。"
+    - "计划和素材层也只有平台线索、私信和前端成本，缺少逐条有效性、联系、成交和收入反馈。"
+    - "账户 CTR 为 0.8669%，不同计划的 CTR/CPL 组合不同，不能用单一平台 CPL 代表真实获客质量。"
+  likely_diagnosis:
+    - "当前核心问题是 Close 层证据缺失，而不是已经确认的线索质量差或好。"
+    - "应先补齐有效线索定义、销售跟进和回传口径，再判断计划或素材是否值得扩量。"
+  content_review_needed: false
+  strategy_direction:
+    - "Control risk：保持当前观察和数据核验，不依据 14 条平台线索或 11 条私信直接扩量。"
+    - "优先请求线索质量、跟进、成交和收入数据；补齐后按计划和素材拆分有效线索成本。"
+    - "在质量数据可用前，只能给出观察和补证据方向，不输出暂停、预算或出价参数。"
+  cannot_conclude:
+    - "不能判断平台线索是否为高意向、低意向或无效线索。"
+    - "不能计算有效线索成本、获客 CAC 或 ROI，也不能据此确认哪个计划应扩量或停止。"
+    - "没有素材正文，不能做 Hook、承诺、CTA 或合规归因。"
+
+expected_behavior:
+  should_call:
+    - supervisor
+    - data_analysis
+    - ads_diagnosis
+    - strategy
+  should_not_call:
+    - content_review
+  acceptable_routes:
+    - "supervisor -> data_analysis -> supervisor -> ads_diagnosis -> supervisor -> strategy -> supervisor -> finish"
+    - "supervisor -> data_analysis -> supervisor -> ads_diagnosis -> supervisor -> strategy -> supervisor -> data_analysis -> supervisor -> finish"
+  forbidden_outputs:
+    - budget_change
+    - bid_change
+    - pause_plan
+    - scale_percentage
+    - execution_status
+    - backend_action

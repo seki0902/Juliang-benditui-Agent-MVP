@@ -1,0 +1,177 @@
+schema_version: golden_case.v1
+case_id: case-002-plan-quality-break
+date: 2026-09-18
+description: "账户 1 在 2026-08-06 至 2026-08-08 的完整三日窗口；单一计划贡献 90.87% 消耗和全部 11 条线索，但确认意向为 0。"
+
+input_snapshot:
+  account:
+    account_id: account-a
+    source_reference: "真实账户导出 / 账户 1 / 单元与视频明细"
+    report_date: 2026-09-18
+    observation_window: "2026-08-06/2026-08-08"
+    window_days: 3
+    grain: "账户汇总；计划与素材按日明细后聚合"
+    data_scope: "真实账户导出，平台 ID、计划名和素材名已脱敏"
+    spend: 2045.3
+    impressions: 6502
+    clicks: 106
+    ctr_pct: 1.6303
+    leads: 11
+    valid_leads: 0
+    valid_lead_rate_pct: 0.0
+    cpl: 185.9364
+    valid_lead_cost: null
+    private_intent: 0
+    daily_metrics:
+      - date: 2026-08-06
+        spend: 715.34
+        impressions: 2399
+        clicks: 52
+        ctr_pct: 2.1676
+        leads: 6
+        valid_leads: 0
+        valid_lead_rate_pct: 0.0
+        cpl: 119.2233
+        valid_lead_cost: null
+      - date: 2026-08-07
+        spend: 540.37
+        impressions: 1402
+        clicks: 23
+        ctr_pct: 1.6405
+        leads: 1
+        valid_leads: 0
+        valid_lead_rate_pct: 0.0
+        cpl: 540.37
+        valid_lead_cost: null
+      - date: 2026-08-08
+        spend: 789.59
+        impressions: 2701
+        clicks: 31
+        ctr_pct: 1.1477
+        leads: 4
+        valid_leads: 0
+        valid_lead_rate_pct: 0.0
+        cpl: 197.3975
+        valid_lead_cost: null
+    missing_fields:
+      - contacted_leads
+      - contact_rate
+      - deal_count
+      - revenue
+      - creative_transcript
+  plans:
+    - plan_id: plan-a-01
+      source_label: dominant_plan
+      campaign_type: short_video
+      delivery_type: broad
+      spend: 1858.61
+      spend_share_pct: 90.8722
+      impressions: 5465
+      clicks: 88
+      ctr_pct: 1.6102
+      leads: 11
+      lead_share_pct: 100.0
+      valid_leads: 0
+      valid_lead_rate_pct: 0.0
+      cpl: 168.9645
+      valid_lead_cost: null
+      private_intent: 0
+      sample_note: "三日累计 11 条线索，确认意向为 0。"
+    - plan_id: plan-a-02
+      source_label: secondary_plan
+      campaign_type: short_video
+      delivery_type: broad
+      spend: 186.3
+      spend_share_pct: 9.1087
+      impressions: 1028
+      clicks: 18
+      ctr_pct: 1.751
+      leads: 0
+      valid_leads: 0
+      valid_lead_rate_pct: null
+      cpl: null
+      valid_lead_cost: null
+      private_intent: 0
+  materials:
+    - material_id: material-a-01
+      source_label: lead_material_01
+      spend: 813.27
+      impressions: 2822
+      clicks: 37
+      ctr_pct: 1.3111
+      leads: 5
+      valid_leads: 0
+      valid_lead_rate_pct: 0.0
+      cpl: 162.654
+      valid_lead_cost: null
+    - material_id: material-a-02
+      source_label: lead_material_02
+      spend: 772.86
+      impressions: 1646
+      clicks: 39
+      ctr_pct: 2.3694
+      leads: 6
+      valid_leads: 0
+      valid_lead_rate_pct: 0.0
+      cpl: 128.81
+      valid_lead_cost: null
+    - material_id: material-a-03
+      source_label: low_lead_material
+      spend: 272.87
+      impressions: 1006
+      clicks: 12
+      ctr_pct: 1.1928
+      leads: 0
+      valid_leads: 0
+      valid_lead_rate_pct: null
+      cpl: null
+      valid_lead_cost: null
+  lead_quality:
+    total_leads: 11
+    valid_leads: 0
+    valid_lead_rate_pct: 0.0
+    valid_lead_definition: "导出字段：确认意向数（计费时间）/ 线索留资数（计费时间）"
+    contacted_leads: null
+    contacted_rate_pct: null
+    sales_feedback_available: false
+    missing_fields:
+      - contacted_leads
+      - sales_follow_up_status
+      - deal_count
+      - revenue
+  content_assets: []
+
+human_analysis:
+  important_observations:
+    - "完整三日窗口累计消耗 2,045.30，获得 11 条线索，但确认意向为 0，有效率为 0%。"
+    - "plan-a-01 占账户消耗 90.87%，贡献全部 11 条线索；其 CTR 1.6102% 与账户 CTR 1.6303% 接近。"
+    - "问题主要出现在点击后的有效线索/承接层，而不是单纯的点击获取层；素材原文、联系和成交数据均未提供。"
+  likely_diagnosis:
+    - "若导出字段定义和回传可信，plan-a-01 的流量未形成有效意向，需优先排查线索筛选、表单承诺、销售跟进和回传口径。"
+    - "不能仅凭 CTR 或表面 CPL 判定计划可放量；有效线索成本当前不可计算。"
+  content_review_needed: false
+  strategy_direction:
+    - "Control risk：停止放量，先核对有效线索定义、回传和跟进链路。"
+    - "在质量问题未解释前，不扩大 plan-a-01 的预算；后续是否暂停应由补充核验后的数据决定。"
+    - "保留账户级对照，避免把单一计划的问题误判为全账户流量问题。"
+  cannot_conclude:
+    - "没有销售跟进和 CRM 结果，不能确认 0 有效率究竟来自低意向、筛选口径还是跟进缺失。"
+    - "没有素材正文或视频，不能把问题直接归因于某个文案承诺。"
+
+expected_behavior:
+  should_call:
+    - supervisor
+    - data_analysis
+    - ads_diagnosis
+    - strategy
+  should_not_call:
+    - content_review
+  acceptable_routes:
+    - "supervisor -> data_analysis -> supervisor -> ads_diagnosis -> supervisor -> strategy -> supervisor -> finish"
+  forbidden_outputs:
+    - budget_change
+    - bid_change
+    - pause_plan
+    - scale_percentage
+    - execution_status
+    - backend_action

@@ -1,0 +1,52 @@
+schema_version: golden_case.v1
+case_id: case-008-verifiable-content-risk
+date: 2026-09-20
+description: "账户 2 的已导出素材标题含有可核验的结果导向表达；案例测试 Content Review 能基于实际文本标记风险，而非由指标或名称臆测脚本。"
+
+input_snapshot:
+  account:
+    account_id: account-b
+    source_reference: "真实账户导出 / 账户 2 / 视频明细"
+    report_date: 2026-09-18
+    observation_window: "2026-08-14/2026-08-15"
+    window_days: 2
+    scope_note: "此案例的核心证据是已导出的标题文本；两日投放数据仅作关联上下文，不用于放量或停投结论。"
+  plans: null
+  materials:
+    - material_id: material-b-content-01
+      source_material_id: "7672087326290166784"
+      spend: 53.89
+      impressions: 387
+      clicks: 3
+      leads: 0
+      observed_days: 2
+      content_text_available: true
+  lead_quality: null
+  content_assets:
+    - material_id: material-b-content-01
+      source_material_id: "7672087326290166784"
+      asset_type: material_title
+      asset_text: "0实习也能拿名企Offer的秘密！爱思益求职辅导！"
+      content_available: true
+      review_reason: "标题文本直接包含‘0实习也能拿名企Offer’的结果导向承诺；未提供可核验资质、适用条件或完整脚本。"
+
+human_analysis:
+  important_observations:
+    - "素材标题是导出中可直接核验的文本，不是从素材 ID、名称模式或表现数据推断出的脚本。"
+    - "该标题将‘0实习’与‘拿名企 Offer’直接关联，且当前快照没有资质、适用条件或完整视频上下文。"
+    - "观察窗口不足三日且仅有 3 次点击、0 条线索，因此不能以效果数据判断素材适投性。"
+  likely_diagnosis:
+    - "这是需要优先做内容与合规复核的结果承诺风险；审查应要求删除或改成不承诺结果的过程型表达。"
+  content_review_needed: true
+  strategy_direction:
+    - "先完成内容复核和素材-落地页一致性核验；仅在修订后的版本有足够样本与质量数据时再评估投放表现。"
+  cannot_conclude:
+    - "没有完整视频、落地页和资质材料，不能判断其他画面、服务主体或全部文案是否合规。"
+    - "不能把两日 0 线索写成素材效果失败，也不能直接执行下架或修改。"
+
+expected_behavior:
+  should_call: [supervisor, data_analysis, content_review, strategy]
+  should_not_call: [ads_diagnosis]
+  acceptable_routes:
+    - "supervisor -> data_analysis -> supervisor -> content_review -> supervisor -> strategy -> supervisor -> finish"
+  forbidden_outputs: [budget_change, bid_change, pause_plan, scale_percentage, execution_status, backend_action, guaranteed_offer]

@@ -1,0 +1,48 @@
+schema_version: golden_case.v1
+case_id: case-009-no-content-review
+date: 2026-09-20
+description: "账户 3 在 2026-09-15 至 2026-09-17 的低样本、无转化窗口；没有可绑定的内容证据，因此不应调用 Content Review。"
+
+input_snapshot:
+  account:
+    account_id: account-c
+    source_reference: "真实账户导出 / 账户 3 / 单元与视频明细"
+    report_date: 2026-09-18
+    observation_window: "2026-09-15/2026-09-17"
+    window_days: 3
+    spend: 49.80
+    impressions: 538
+    clicks: 5
+    ctr_pct: 0.9294
+    leads: 0
+    valid_leads: null
+    cpl: null
+    missing_fields: [valid_leads, contacted_leads, deal_count, revenue, creative_transcript]
+  plans: null
+  materials: null
+  lead_quality:
+    total_leads: 0
+    valid_leads: null
+    contacted_leads: null
+    sales_feedback_available: false
+  content_assets: []
+
+human_analysis:
+  important_observations:
+    - "这是完整三日窗口，但仅有 49.80 消耗、538 次曝光和 5 次点击；没有线索，CPL 不可计算。"
+    - "没有计划级、素材级或脚本文本证据，无法定位内容、定向、出价或承接中的任一原因。"
+  likely_diagnosis:
+    - "样本不足以触发素材或计划的确定性处置；应先保留观察并补充计划配置和后续样本。"
+  content_review_needed: false
+  strategy_direction:
+    - "Hold：不根据这三日小样本做放量、降预算或暂停建议；补充连续窗口和投放配置后再复核。"
+  cannot_conclude:
+    - "没有内容资产，不能判断 Hook、承诺、合规或内容疲劳。"
+    - "没有足够样本与后端质量数据，不能判断 CPL、有效线索成本或 ROI。"
+
+expected_behavior:
+  should_call: [supervisor, data_analysis, strategy]
+  should_not_call: [content_review, ads_diagnosis]
+  acceptable_routes:
+    - "supervisor -> data_analysis -> supervisor -> strategy -> supervisor -> finish"
+  forbidden_outputs: [budget_change, bid_change, pause_plan, scale_percentage, execution_status, backend_action]

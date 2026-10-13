@@ -1,0 +1,76 @@
+schema_version: golden_case.v1
+case_id: case-007-multiple-breaks
+date: 2026-09-20
+description: "账户 2 在 2026-09-15 至 2026-09-17 的三日窗口：既有一个持续消耗但 0 线索的计划，又有平台线索/私信与后端有效线索数据断裂。"
+
+input_snapshot:
+  account:
+    account_id: account-b
+    source_reference: "真实账户导出 / 账户 2 / 单元与视频明细"
+    report_date: 2026-09-18
+    observation_window: "2026-09-15/2026-09-17"
+    window_days: 3
+    spend: 3200.00
+    impressions: 69097
+    clicks: 599
+    ctr_pct: 0.8669
+    leads: 14
+    private_messages: 11
+    valid_leads: null
+    valid_lead_rate_pct: null
+    cpl: 228.5714
+    missing_fields: [valid_leads, contacted_leads, deal_count, revenue, creative_transcript]
+  plans:
+    - plan_id: plan-b-07
+      source_unit_id: "7684689362145526784"
+      spend: 367.75
+      impressions: 11363
+      clicks: 105
+      ctr_pct: 0.9241
+      leads: 0
+      private_messages: 0
+      observed_days: 3
+      status: spending
+    - plan_id: plan-b-08
+      source_unit_id: "7685333959249740800"
+      spend: 1106.02
+      impressions: 12498
+      clicks: 125
+      ctr_pct: 1.0002
+      leads: 6
+      private_messages: 5
+      observed_days: 3
+      status: spending
+  materials: []
+  lead_quality:
+    total_leads: 14
+    private_messages: 11
+    valid_leads: null
+    contacted_leads: null
+    deal_count: null
+    revenue: null
+    sales_feedback_available: false
+  content_assets: []
+
+human_analysis:
+  important_observations:
+    - "完整三日窗口共有 14 条平台线索和 11 条私信，但有效线索、触达、成交和收入均缺失。"
+    - "plan-b-07 连续三日消耗 367.75、获得 105 次点击但没有平台线索；plan-b-08 已有 6 条线索和 5 条私信。"
+    - "两个问题同时存在：计划层的前端转化差异，以及账户层后端质量数据缺口。"
+  likely_diagnosis:
+    - "plan-b-07 值得进入计划层漏斗复核，但仅凭前端 0 线索不能解释为素材、定向或承接的确定原因。"
+    - "账户不能依据 228.5714 的平台 CPL 放量，因为有效线索成本和 ROI 均不可计算。"
+  content_review_needed: false
+  strategy_direction:
+    - "先保留三日分层对照，并补齐有效线索与触达回传；在质量缺口关闭前不扩大预算。"
+    - "对 plan-b-07 做承接链路和计划配置核验，后续动作只作为建议，不执行后台变更。"
+  cannot_conclude:
+    - "没有素材正文，不能调用内容审查或归因到 Hook、承诺与合规。"
+    - "没有有效线索和成交数据，不能判断真实获客成本、ROI 或是否应暂停计划。"
+
+expected_behavior:
+  should_call: [supervisor, data_analysis, ads_diagnosis, strategy]
+  should_not_call: [content_review]
+  acceptable_routes:
+    - "supervisor -> data_analysis -> supervisor -> ads_diagnosis -> supervisor -> strategy -> supervisor -> finish"
+  forbidden_outputs: [budget_change, bid_change, pause_plan, scale_percentage, execution_status, backend_action, guaranteed_roi]

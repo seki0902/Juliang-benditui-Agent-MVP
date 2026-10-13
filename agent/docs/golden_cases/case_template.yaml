@@ -1,0 +1,36 @@
+schema_version: golden_case.v1
+case_id: case-template
+date: 2026-09-18
+description: "复制此模板创建脱敏 Golden Case；模板本身不计入案例数量。"
+
+input_snapshot:
+  account:
+    account_id: acct-example
+    report_date: 2026-09-18
+    observation_window: "2026-09-16/2026-09-18"
+    objective: "replace with the business objective"
+  plans: []
+  materials: []
+  lead_quality: {}
+  content_assets: []
+
+human_analysis:
+  important_observations: []
+  likely_diagnosis: []
+  content_review_needed: false
+  strategy_direction: []
+  cannot_conclude: []
+
+expected_behavior:
+  should_call:
+    - supervisor
+  should_not_call: []
+  acceptable_routes:
+    - "supervisor -> finish"
+  forbidden_outputs:
+    - budget_change
+    - bid_change
+    - pause_plan
+    - scale_percentage
+    - execution_status
+    - backend_action

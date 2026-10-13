@@ -1,0 +1,182 @@
+schema_version: golden_case.v1
+case_id: case-004-sample-shortage
+date: 2026-09-18
+description: "账户 3 在 2026-09-15 至 2026-09-17 的三日窗口样本很小：仅 49.80 元消耗、5 次点击、0 条平台线索。多个计划只观察到 1 天或极少量数据。"
+
+input_snapshot:
+  account:
+    account_id: account-d
+    source_reference: "真实账户导出 / 账户 3 / 单元与视频明细 / 脱敏快照"
+    report_date: 2026-09-18
+    observation_window: "2026-09-15/2026-09-17"
+    window_days: 3
+    grain: "账户汇总；计划与素材按日明细后聚合"
+    data_scope: "真实账户导出，平台 ID、计划名和素材名已脱敏"
+    spend: 49.8
+    impressions: 538
+    clicks: 5
+    ctr_pct: 0.9294
+    leads: 0
+    valid_leads: null
+    valid_lead_rate_pct: null
+    cpl: null
+    valid_lead_cost: null
+    private_intent: 0
+    daily_metrics:
+      - date: 2026-09-15
+        spend: 19.97
+        impressions: 228
+        clicks: 2
+        ctr_pct: 0.8772
+        leads: 0
+        valid_leads: null
+        valid_lead_rate_pct: null
+        cpl: null
+      - date: 2026-09-16
+        spend: 5.15
+        impressions: 55
+        clicks: 2
+        ctr_pct: 3.6364
+        leads: 0
+        valid_leads: null
+        valid_lead_rate_pct: null
+        cpl: null
+      - date: 2026-09-17
+        spend: 24.68
+        impressions: 255
+        clicks: 1
+        ctr_pct: 0.3922
+        leads: 0
+        valid_leads: null
+        valid_lead_rate_pct: null
+        cpl: null
+    missing_fields:
+      - valid_leads
+      - contacted_leads
+      - contact_rate
+      - deal_count
+      - revenue
+      - creative_transcript
+  plans:
+    - plan_id: plan-d-01
+      source_label: main_plan
+      campaign_type: short_video
+      delivery_type: broad
+      spend: 40.61
+      spend_share_pct: 81.5462
+      impressions: 431
+      clicks: 4
+      ctr_pct: 0.9281
+      leads: 0
+      valid_leads: null
+      valid_lead_rate_pct: null
+      cpl: null
+      valid_lead_cost: null
+      observed_days: 3
+    - plan_id: plan-d-02
+      source_label: one_day_plan
+      campaign_type: short_video
+      delivery_type: broad
+      spend: 6.57
+      spend_share_pct: 13.1928
+      impressions: 46
+      clicks: 0
+      ctr_pct: 0.0
+      leads: 0
+      valid_leads: null
+      valid_lead_rate_pct: null
+      cpl: null
+      valid_lead_cost: null
+      observed_days: 1
+      sample_note: "仅 1 天有消耗，不能据此判断计划状态或质量。"
+    - plan_id: plan-d-03
+      source_label: tiny_sample_plan
+      campaign_type: short_video
+      delivery_type: broad
+      spend: 0.96
+      spend_share_pct: 1.9277
+      impressions: 19
+      clicks: 1
+      ctr_pct: 5.2632
+      leads: 0
+      valid_leads: null
+      valid_lead_rate_pct: null
+      cpl: null
+      valid_lead_cost: null
+      observed_days: 3
+      sample_note: "仅 19 次展示和 1 次点击，不足以评价 CTR 或转化。"
+  materials:
+    - material_id: material-d-01
+      source_label: main_material
+      spend: 12.75
+      impressions: 117
+      clicks: 1
+      ctr_pct: 0.8547
+      leads: 0
+      valid_leads: null
+      valid_lead_rate_pct: null
+      cpl: null
+      valid_lead_cost: null
+    - material_id: material-d-02
+      source_label: tiny_sample_material
+      spend: 3.83
+      impressions: 17
+      clicks: 1
+      ctr_pct: 5.8824
+      leads: 0
+      valid_leads: null
+      valid_lead_rate_pct: null
+      cpl: null
+      valid_lead_cost: null
+      sample_note: "高 CTR 来自 17 次展示和 1 次点击，不能单独触发换素材。"
+  lead_quality:
+    total_leads: 0
+    valid_leads: null
+    valid_lead_rate_pct: null
+    valid_lead_definition: "导出字段：确认意向数（计费时间）/ 线索留资数（计费时间）"
+    contacted_leads: null
+    contacted_rate_pct: null
+    sales_feedback_available: false
+    missing_fields:
+      - valid_leads
+      - contacted_leads
+      - sales_follow_up_status
+      - deal_count
+      - revenue
+  content_assets: []
+
+human_analysis:
+  important_observations:
+    - "三日账户仅 49.80 元消耗、538 次展示、5 次点击和 0 条平台线索，样本量明显不足。"
+    - "主计划贡献 81.5462% 消耗，但只有 4 次点击；多个计划或素材只观察到 1 天，或只有个位数点击。"
+    - "账户、计划和素材的有效线索及销售反馈均缺失，当前不能把 0 条线索解释成已确认的质量问题。"
+  likely_diagnosis:
+    - "当前更像是低样本观察状态，尚不足以区分流量、素材、承接或计划结构问题。"
+    - "需要继续积累至少一个完整可比窗口，再对主计划和新计划做分层判断。"
+  content_review_needed: false
+  strategy_direction:
+    - "Hold：保留最小观察窗口，不因单日 CTR 或 0 条线索直接停投、换素材或扩量。"
+    - "先补齐有效线索和销售反馈，再在样本达到可比水平后判断是否需要隔离测试。"
+    - "对仅 1 天或极少点击的对象标记为低置信度，不输出执行参数。"
+  cannot_conclude:
+    - "不能从 5 次点击和 0 条线索判断素材疲劳、定向失效或计划应停止。"
+    - "没有有效线索、跟进、成交和收入字段，不能判断真实获客成本或 ROI。"
+
+expected_behavior:
+  should_call:
+    - supervisor
+    - data_analysis
+    - ads_diagnosis
+    - strategy
+  should_not_call:
+    - content_review
+  acceptable_routes:
+    - "supervisor -> data_analysis -> supervisor -> ads_diagnosis -> supervisor -> strategy -> supervisor -> finish"
+    - "supervisor -> data_analysis -> supervisor -> strategy -> supervisor -> finish"
+  forbidden_outputs:
+    - budget_change
+    - bid_change
+    - pause_plan
+    - scale_percentage
+    - execution_status
+    - backend_action

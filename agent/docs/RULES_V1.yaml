@@ -1,0 +1,221 @@
+# RULES_V1.yaml
+# 规则层配置。以下数值是初始示例，不是行业常识。
+# 实际运行前必须通过本地回放校准，并按账户、计划类型和生命周期分层。
+
+version: "1.0"
+updated_at: "2026-09-14"
+metric_version: "v1"
+
+min_sample:
+  # CTR/CVR 等正向比率指标的基础样本门槛。
+  rate_metrics:
+    impressions: 1000
+    clicks: 30
+  # 需要正向转化样本时使用；不能作为所有规则的全局门槛。
+  positive_conversion_metrics:
+    leads: 1
+    valid_leads: 1
+  # “无有效留资”本身是风险信号，不能要求 valid_leads >= 1。
+  no_event_rules:
+    spend: 100
+    clicks: 30
+
+insufficient_data_action: "observe_only" # observe_only / skip / alert
+
+baseline:
+  current_window_days: 3
+  baseline_window_days: 7
+  min_complete_days: 3
+  statistic: "weighted_ratio" # SUM(numerator) / SUM(denominator)
+  exclude_partial_days: true
+  robust_fallback: "median_mad" # 样本少时使用稳健统计
+
+account_defaults:
+  pause:
+    enabled: true
+    min_spend: 300
+    min_clicks: 30
+    no_valid_leads_days: 3
+    valid_lead_cost_multiple: 1.8
+  reduce_budget:
+    enabled: true
+    min_spend: 200
+    cvr_decline_days: 2
+    cvr_decline_threshold: 0.15
+    budget_reduce_ratio: 0.20
+  scale:
+    enabled: true
+    stable_days: 3
+    max_cpl_multiple: 1.10
+    max_valid_lead_cost_multiple: 1.10
+    scale_ratio: 0.15
+  observe:
+    min_impressions: 1000
+    min_clicks: 30
+
+plan_type_overrides:
+  shallow:
+    pause:
+      min_spend: 200
+      no_valid_leads_days: 4
+      valid_lead_cost_multiple: 2.0
+    reduce_budget:
+      cvr_decline_days: 3
+      budget_reduce_ratio: 0.15
+  deep:
+    pause:
+      min_spend: 400
+      no_valid_leads_days: 2
+      valid_lead_cost_multiple: 1.6
+    reduce_budget:
+      cvr_decline_days: 2
+      budget_reduce_ratio: 0.20
+  unknown:
+    pause:
+      enabled: false
+    scale:
+      enabled: false
+
+lifecycle_stage_overrides:
+  cold_start:
+    pause:
+      min_spend: 500
+      no_valid_leads_days: 5
+      valid_lead_cost_multiple: 2.5
+    reduce_budget:
+      enabled: false
+    observe:
+      min_days: 2
+  mature:
+    pause:
+      min_spend: 300
+      no_valid_leads_days: 3
+      valid_lead_cost_multiple: 1.8
+    scale:
+      stable_days: 3
+      max_cpl_multiple: 1.10
+      scale_ratio: 0.15
+  declining:
+    pause:
+      min_spend: 200
+      no_valid_leads_days: 2
+      valid_lead_cost_multiple: 1.5
+    reduce_budget:
+      cvr_decline_days: 2
+      budget_reduce_ratio: 0.25
+    scale:
+      enabled: false
+
+material_fatigue:
+  current_window_days: 3
+  baseline_window_days: 7
+  min_impressions: 1000
+  min_clicks: 30
+  ctr_decline_threshold: 0.20
+  frequency_required: true
+  frequency_increase_threshold: 0.30
+  missing_frequency_result: "candidate_only"
+
+anomaly_detection:
+  ctr_decline:
+    consecutive_days: 2
+    threshold: 0.20
+  cvr_decline:
+    consecutive_days: 2
+    threshold: 0.15
+  cpl_increase:
+    threshold: 0.30
+  valid_lead_cost_increase:
+    threshold: 0.30
+  no_new_valid_leads:
+    min_spend_multiple: 1.8
+    min_spend: 100
+    min_clicks: 30
+    min_leads: 1
+    require_complete_data: true
+
+# 用户指定的第一版诊断信号。
+# low/high 均相对于账户或同类型计划基线，不使用固定行业数字。
+# 这些是候选根因或放量候选，不是绝对因果结论。
+funnel_diagnosis:
+  relative_to_baseline: true
+  rules:
+    - id: ctr_low
+      when: "ctr < baseline_ctr"
+      candidate_causes:
+        - creative_issue
+        - audience_issue
+      action: "inspect_creative_and_audience"
+    - id: ctr_high_cvr_low
+      when: "ctr >= baseline_ctr AND lead_conversion_rate < baseline_lead_conversion_rate"
+      candidate_causes:
+        - landing_or_handling_issue
+      action: "inspect_page_and_followup_script"
+    - id: ctr_low_cpc_high
+      when: "ctr < baseline_ctr AND cpc > baseline_cpc"
+      candidate_causes:
+        - weak_creative
+        - weak_competitiveness
+      action: "replace_creative_or_review_bid"
+    - id: ctr_high_cpc_low_cvr_high
+      when: "ctr >= baseline_ctr AND cpc <= baseline_cpc AND lead_conversion_rate >= baseline_lead_conversion_rate"
+      candidate_causes: []
+      action: "scale_candidate"
+      requires:
+        - min_sample_passed
+        - stable_days_passed
+        - valid_lead_quality_not_declining
+
+diagnosis:
+  allowed_causes:
+    - creative_fatigue
+    - audience_overlap
+    - bid_issue
+    - budget_issue
+    - delivery_environment
+    - plan_structure
+    - landing_or_lead_quality
+    - follow_up_or_data_lag
+    - insufficient_data
+  confidence_levels:
+    confirmed: 0.80
+    probable: 0.60
+    possible: 0.40
+    insufficient_data: 0.00
+  required_output:
+    - cause
+    - confidence
+    - evidence
+    - missing_evidence
+    - action
+    - observation_window
+
+actions:
+  first_version_auto_execute: false
+  max_single_budget_change_ratio: 0.25
+  require_realtime_status_check: true
+  require_human_approval_for:
+    - pause
+    - reduce_budget
+    - scale
+    - change_bid
+
+recommendation_status:
+  - generated
+  - pending_approval
+  - approved
+  - rejected
+  - executed
+  - observing
+  - evaluated
+  - closed
+
+suppression:
+  same_object_same_action: true
+  suppress_days: 2
+  re_escalate_conditions:
+    - anomaly_worsened
+    - executed_no_improvement
+    - not_executed_overdue
+    - new_key_evidence
+    - plan_status_or_budget_changed

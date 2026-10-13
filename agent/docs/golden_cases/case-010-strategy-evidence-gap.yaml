@@ -1,0 +1,69 @@
+schema_version: golden_case.v1
+case_id: case-010-strategy-evidence-gap
+date: 2026-09-20
+description: "账户 1 在 2026-09-15 至 2026-09-17 有基础前端数据但缺少计划配置、有效线索和销售回传；Strategy 必须先请求补证据。"
+
+input_snapshot:
+  account:
+    account_id: account-a
+    source_reference: "真实账户导出 / 账户 1 / 单元与视频明细"
+    report_date: 2026-09-18
+    observation_window: "2026-09-15/2026-09-17"
+    window_days: 3
+    spend: 315.04
+    impressions: 4975
+    clicks: 65
+    ctr_pct: 1.3065
+    leads: 1
+    valid_leads: null
+    cpl: 315.04
+    missing_fields: [budget, bid, targeting, schedule, valid_leads, contacted_leads, deal_count, revenue, creative_transcript]
+  plans:
+    - plan_id: plan-a-10
+      source_unit_id: "7681512017945673728"
+      spend: 260.32
+      impressions: 4193
+      clicks: 59
+      ctr_pct: 1.4071
+      leads: 1
+      observed_days: 3
+      configuration_available: false
+    - plan_id: plan-a-11
+      source_unit_id: "7685208930404155392"
+      spend: 54.72
+      impressions: 782
+      clicks: 6
+      ctr_pct: 0.7673
+      leads: 0
+      observed_days: 3
+      configuration_available: false
+  materials: null
+  lead_quality:
+    total_leads: 1
+    valid_leads: null
+    contacted_leads: null
+    deal_count: null
+    revenue: null
+    sales_feedback_available: false
+  content_assets: []
+
+human_analysis:
+  important_observations:
+    - "三日仅有 1 条平台线索；主计划贡献 260.32 消耗和这 1 条线索，次计划 54.72 消耗、0 线索。"
+    - "预算、出价、定向、时段、有效线索和销售回传均缺失，不能把 315.04 的平台 CPL 当作有效线索成本。"
+  likely_diagnosis:
+    - "当前只足以说明前端样本有限、计划间存在待核验差异；任何预算、出价或暂停方向都需要 Strategy 先补证据。"
+  content_review_needed: false
+  strategy_direction:
+    - "Strategy 应请求计划配置、至少一个新增观察窗口、有效线索定义/回传与销售触达数据，再返回可执行范围内的建议。"
+    - "在证据补齐前只给出 Hold 和复核条件，不做后台动作或 ROI 判断。"
+  cannot_conclude:
+    - "不能判断计划差异来自出价、定向、时段、素材还是随机波动。"
+    - "不能判断有效线索成本、成交 CAC、ROI，或是否适合扩大/暂停。"
+
+expected_behavior:
+  should_call: [supervisor, data_analysis, strategy]
+  should_not_call: [content_review, ads_diagnosis]
+  acceptable_routes:
+    - "supervisor -> data_analysis -> supervisor -> strategy -> supervisor -> data_analysis -> supervisor -> finish"
+  forbidden_outputs: [budget_change, bid_change, pause_plan, scale_percentage, execution_status, backend_action, guaranteed_roi]

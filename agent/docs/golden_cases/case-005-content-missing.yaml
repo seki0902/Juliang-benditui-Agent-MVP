@@ -1,0 +1,183 @@
+schema_version: golden_case.v1
+case_id: case-005-content-missing
+date: 2026-09-18
+description: "账户 1 在 2026-09-15 至 2026-09-17 的窗口中，主计划消耗 82.6308%，其中一个具体素材有 16 次点击但没有平台线索；素材正文和视频内容不可用，无法直接判断是 Hook、承诺、定向还是承接问题。"
+
+input_snapshot:
+  account:
+    account_id: account-e
+    source_reference: "真实账户导出 / 账户 1 / 单元与视频明细 / 脱敏快照"
+    report_date: 2026-09-18
+    observation_window: "2026-09-15/2026-09-17"
+    window_days: 3
+    grain: "账户汇总；计划与素材按日明细后聚合"
+    data_scope: "真实账户导出，平台 ID、计划名和素材名已脱敏"
+    spend: 315.04
+    impressions: 4975
+    clicks: 65
+    ctr_pct: 1.3065
+    leads: 1
+    valid_leads: null
+    valid_lead_rate_pct: null
+    cpl: 315.04
+    valid_lead_cost: null
+    private_intent: 0
+    daily_metrics:
+      - date: 2026-09-15
+        spend: 134.25
+        impressions: 1822
+        clicks: 28
+        ctr_pct: 1.5368
+        leads: 1
+        valid_leads: null
+        valid_lead_rate_pct: null
+        cpl: 134.25
+      - date: 2026-09-16
+        spend: 134.15
+        impressions: 2965
+        clicks: 33
+        ctr_pct: 1.113
+        leads: 0
+        valid_leads: null
+        valid_lead_rate_pct: null
+        cpl: null
+      - date: 2026-09-17
+        spend: 46.64
+        impressions: 188
+        clicks: 4
+        ctr_pct: 2.1277
+        leads: 0
+        valid_leads: null
+        valid_lead_rate_pct: null
+        cpl: null
+    missing_fields:
+      - valid_leads
+      - contacted_leads
+      - contact_rate
+      - deal_count
+      - revenue
+      - creative_transcript
+  plans:
+    - plan_id: plan-e-01
+      source_label: dominant_plan
+      campaign_type: short_video
+      delivery_type: broad
+      spend: 260.32
+      spend_share_pct: 82.6308
+      impressions: 4193
+      clicks: 59
+      ctr_pct: 1.4071
+      leads: 1
+      valid_leads: null
+      valid_lead_rate_pct: null
+      cpl: 260.32
+      valid_lead_cost: null
+      observed_days: 3
+    - plan_id: plan-e-02
+      source_label: secondary_plan
+      campaign_type: short_video
+      delivery_type: broad
+      spend: 54.72
+      spend_share_pct: 17.3692
+      impressions: 782
+      clicks: 6
+      ctr_pct: 0.7673
+      leads: 0
+      valid_leads: null
+      valid_lead_rate_pct: null
+      cpl: null
+      valid_lead_cost: null
+      observed_days: 3
+  materials:
+    - material_id: material-e-01
+      source_label: content_review_candidate
+      spend: 118.01
+      spend_share_pct: 37.4565
+      impressions: 1190
+      clicks: 16
+      ctr_pct: 1.3445
+      leads: 0
+      valid_leads: null
+      valid_lead_rate_pct: null
+      cpl: null
+      valid_lead_cost: null
+    - material_id: material-e-02
+      source_label: one_lead_peer
+      spend: 115.06
+      spend_share_pct: 36.5192
+      impressions: 2549
+      clicks: 35
+      ctr_pct: 1.3731
+      leads: 1
+      valid_leads: null
+      valid_lead_rate_pct: null
+      cpl: 115.06
+      valid_lead_cost: null
+    - material_id: material-e-03
+      source_label: high_ctr_small_peer
+      spend: 27.25
+      spend_share_pct: 8.6497
+      impressions: 454
+      clicks: 8
+      ctr_pct: 1.7621
+      leads: 0
+      valid_leads: null
+      valid_lead_rate_pct: null
+      cpl: null
+      valid_lead_cost: null
+      sample_note: "CTR 较高，但只有 8 次点击，不能单独证明素材质量。"
+  lead_quality:
+    total_leads: 1
+    valid_leads: null
+    valid_lead_rate_pct: null
+    valid_lead_definition: "导出字段：确认意向数（计费时间）/ 线索留资数（计费时间）"
+    contacted_leads: null
+    contacted_rate_pct: null
+    sales_feedback_available: false
+    missing_fields:
+      - valid_leads
+      - contacted_leads
+      - sales_follow_up_status
+      - deal_count
+      - revenue
+  content_assets:
+    - material_id: material-e-01
+      content_available: false
+      asset_text: null
+      review_reason: "该素材占窗口消耗 37.4565%，有 16 次点击但 0 条平台线索；缺少视频、口播稿和字幕，需内容证据才能判断 Hook、承诺、CTA 与人群筛选。"
+
+human_analysis:
+  important_observations:
+    - "三日账户共消耗 315.04 元、65 次点击和 1 条平台线索；主计划占 82.6308% 消耗。"
+    - "material-e-01 消耗 118.01 元、1190 次展示、16 次点击、0 条线索，属于可定位的素材层异常候选。"
+    - "当前没有 material-e-01 的视频、口播稿或字幕，不能从素材名称反推内容问题。"
+  likely_diagnosis:
+    - "可能存在点击后承接、承诺与目标人群不匹配，或素材本身的转化路径不清，但目前只能作为待验证假设。"
+    - "应把内容审查限定在 material-e-01，不应把单一素材候选外推为全账户结论。"
+  content_review_needed: true
+  strategy_direction:
+    - "Control risk：先补充 material-e-01 的真实内容和承接信息，再决定是否重做素材或隔离测试。"
+    - "在有效线索和后端反馈缺失时保持小范围观察，不因 CTR 或平台 CPL 直接扩量。"
+    - "若无法补齐素材内容，输出内容层无法判断，并把后续动作限定为补证据。"
+  cannot_conclude:
+    - "不能判断问题一定来自 Hook、承诺、CTA、定向或销售跟进。"
+    - "没有有效线索、联系、成交和收入字段，不能判断真实获客成本或 ROI。"
+
+expected_behavior:
+  should_call:
+    - supervisor
+    - data_analysis
+    - ads_diagnosis
+    - content_review
+    - strategy
+  should_not_call: []
+  acceptable_routes:
+    - "supervisor -> data_analysis -> supervisor -> ads_diagnosis -> supervisor -> content_review -> supervisor -> strategy -> supervisor -> finish"
+    - "supervisor -> data_analysis -> supervisor -> ads_diagnosis -> supervisor -> strategy -> supervisor -> finish"
+  forbidden_outputs:
+    - budget_change
+    - bid_change
+    - pause_plan
+    - scale_percentage
+    - execution_status
+    - backend_action

@@ -1,0 +1,193 @@
+schema_version: golden_case.v1
+case_id: case-001-normal-account
+date: 2026-09-18
+description: "账户 3 在 2026-08-17 至 2026-08-19 的完整三日窗口；账户层漏斗稳定，但存在一个仅 1 条线索的计划级小样本异常。"
+
+input_snapshot:
+  account:
+    account_id: account-c
+    source_reference: "真实账户导出 / 账户 3 / 单元与视频明细"
+    report_date: 2026-09-18
+    observation_window: "2026-08-17/2026-08-19"
+    window_days: 3
+    grain: "账户汇总；计划与素材按日明细后聚合"
+    data_scope: "真实账户导出，平台 ID、计划名和素材名已脱敏"
+    spend: 3423.25
+    impressions: 54206
+    clicks: 553
+    ctr_pct: 1.0202
+    leads: 16
+    valid_leads: 8
+    valid_lead_rate_pct: 50.0
+    cpl: 213.9531
+    valid_lead_cost: 427.9062
+    private_intent: 0
+    daily_metrics:
+      - date: 2026-08-17
+        spend: 1106.26
+        impressions: 17525
+        clicks: 174
+        ctr_pct: 0.9929
+        leads: 4
+        valid_leads: 2
+        valid_lead_rate_pct: 50.0
+        cpl: 276.565
+        valid_lead_cost: 553.13
+      - date: 2026-08-18
+        spend: 983.31
+        impressions: 16184
+        clicks: 157
+        ctr_pct: 0.9701
+        leads: 7
+        valid_leads: 4
+        valid_lead_rate_pct: 57.1429
+        cpl: 140.4729
+        valid_lead_cost: 245.8275
+      - date: 2026-08-19
+        spend: 1333.68
+        impressions: 20497
+        clicks: 222
+        ctr_pct: 1.0831
+        leads: 5
+        valid_leads: 2
+        valid_lead_rate_pct: 40.0
+        cpl: 266.736
+        valid_lead_cost: 666.84
+    missing_fields:
+      - contacted_leads
+      - contact_rate
+      - deal_count
+      - revenue
+      - creative_transcript
+  plans:
+    - plan_id: plan-c-01
+      source_label: top_spend_plan
+      campaign_type: short_video
+      delivery_type: broad
+      spend: 1137.69
+      spend_share_pct: 33.24
+      impressions: 14423
+      clicks: 170
+      ctr_pct: 1.1787
+      leads: 9
+      valid_leads: 4
+      valid_lead_rate_pct: 44.4444
+      cpl: 126.41
+      valid_lead_cost: 284.4225
+      private_intent: 0
+    - plan_id: plan-c-02
+      source_label: second_spend_plan
+      campaign_type: short_video
+      delivery_type: broad
+      spend: 970.12
+      spend_share_pct: 28.34
+      impressions: 17751
+      clicks: 179
+      ctr_pct: 1.0084
+      leads: 3
+      valid_leads: 2
+      valid_lead_rate_pct: 66.6667
+      cpl: 323.3733
+      valid_lead_cost: 485.06
+      private_intent: 0
+    - plan_id: plan-c-03
+      source_label: low_sample_plan
+      campaign_type: short_video
+      delivery_type: broad
+      spend: 526.53
+      spend_share_pct: 15.38
+      impressions: 8856
+      clicks: 113
+      ctr_pct: 1.276
+      leads: 1
+      valid_leads: 0
+      valid_lead_rate_pct: 0.0
+      cpl: 526.53
+      valid_lead_cost: null
+      private_intent: 0
+      sample_note: "仅 1 条线索，不足以单独触发计划停止。"
+  materials:
+    - material_id: material-c-01
+      source_label: top_spend_material
+      spend: 1080.83
+      impressions: 18555
+      clicks: 199
+      ctr_pct: 1.0725
+      leads: 3
+      valid_leads: 2
+      valid_lead_rate_pct: 66.6667
+      cpl: 360.2767
+      valid_lead_cost: 540.415
+    - material_id: material-c-02
+      source_label: stable_quality_material
+      spend: 788.4
+      impressions: 8905
+      clicks: 82
+      ctr_pct: 0.9208
+      leads: 9
+      valid_leads: 4
+      valid_lead_rate_pct: 44.4444
+      cpl: 87.6
+      valid_lead_cost: 197.1
+    - material_id: material-c-03
+      source_label: high_ctr_low_sample_material
+      spend: 295.15
+      impressions: 3485
+      clicks: 85
+      ctr_pct: 2.439
+      leads: 1
+      valid_leads: 0
+      valid_lead_rate_pct: 0.0
+      cpl: 295.15
+      valid_lead_cost: null
+      sample_note: "CTR 较高但只有 1 条线索，不能据此判断素材质量。"
+  lead_quality:
+    total_leads: 16
+    valid_leads: 8
+    valid_lead_rate_pct: 50.0
+    valid_lead_definition: "导出字段：确认意向数（计费时间）/ 线索留资数（计费时间）"
+    contacted_leads: null
+    contacted_rate_pct: null
+    sales_feedback_available: false
+    missing_fields:
+      - contacted_leads
+      - sales_follow_up_status
+      - deal_count
+      - revenue
+  content_assets: []
+
+human_analysis:
+  important_observations:
+    - "三日窗口有 54,206 次曝光、553 次点击、16 条线索和 8 条确认意向，账户有效率为 50.0%。"
+    - "三天 CTR 为 0.97%～1.08%，有效率为 40.0%～57.1%，没有看到单日断崖式异常。"
+    - "plan-c-03 的有效率为 0%，但只有 1 条线索；material-c-03 的 CTR 为 2.439%，同样只有 1 条线索。"
+  likely_diagnosis:
+    - "账户整体处于可继续观察的稳定状态，不能因为单个小样本对象的 0% 有效率而暂停全账户。"
+    - "plan-c-03 与 material-c-03 属于需要补充样本的局部观察点，而不是已确认的结构性问题。"
+  content_review_needed: false
+  strategy_direction:
+    - "Hold：维持当前结构并继续观察至少一个完整三日窗口。"
+    - "对 plan-c-03 和 material-c-03 做标记，补充线索量后再判断是否替换或降预算。"
+    - "只有在有效率持续低于阈值且样本充分时，才进入风险控制；当前不直接放量。"
+  cannot_conclude:
+    - "没有联系、成交和收入字段，不能判断 ROI、销售承接或最终商业质量。"
+    - "没有素材原文，不能判断 Hook、承诺和合规问题。"
+
+expected_behavior:
+  should_call:
+    - supervisor
+    - data_analysis
+    - ads_diagnosis
+    - strategy
+  should_not_call:
+    - content_review
+  acceptable_routes:
+    - "supervisor -> data_analysis -> supervisor -> ads_diagnosis -> supervisor -> strategy -> supervisor -> finish"
+    - "supervisor -> data_analysis -> supervisor -> strategy -> supervisor -> finish"
+  forbidden_outputs:
+    - budget_change
+    - bid_change
+    - pause_plan
+    - scale_percentage
+    - execution_status
+    - backend_action

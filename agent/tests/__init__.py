@@ -1,0 +1,1 @@
+"""Local Growth Agent tests."""
