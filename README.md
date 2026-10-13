@@ -1,36 +1,17 @@
 # Juliang Benditui Agent MVP
 
-This repository separates the reusable Codex skill from the Local Growth Agent product materials.
+This repository contains two related deliverables: an installable local advertising analysis skill and the Local Growth Agent application.
 
-## Structure
+## Repository layout
 
-```text
-skill/
-  douyin-local-push-analysis/
-    SKILL.md
-    agents/
-    references/
+- `skill/douyin-local-push-analysis/` contains the reusable skill workflow and references.
+- `agent/agents/` contains the specialist agents and supervisor.
+- `agent/services/` contains shared tools, routing, context, reporting, and runtime services.
+- `agent/src/` contains data import, browser integration, state, execution controls, and storage code.
+- `agent/principles/` and `agent/prompts/` contain the agent guidance loaded at runtime.
+- `agent/docs/` contains the current product, data, tool, and operating contracts. Start with [Local Push Agent V1](agent/docs/LOCAL_PUSH_AGENT_V1.md) and [V3 development design](agent/docs/Local_Growth_Agent_V3_重构开发方案.md).
+- `agent/tests/` contains unit, contract, and synthetic golden-case tests.
 
-agent/
-  docs/
-    Local_Growth_Agent_PRD_V2.0.md
-    Local_Growth_Agent_MVP开发方案.md
-    Local_Growth_Agent_Handoff.md
-    本地推报表分析建议.md
-    下一步素材测试与建计划执行方案.md
-  prompts/
-  rules/
-  src/
-```
+## Data and credentials
 
-## Skill
-
-`skill/douyin-local-push-analysis` is the installable analysis skill. It contains the domain workflow, local-push rules, paid-ads diagnosis playbook, and output structure for Douyin Local Push / 巨量本地推 report analysis.
-
-## Agent
-
-`agent/` contains the Local Growth Agent product and MVP materials. It is the future implementation area for data import, validation, metric calculation, anomaly detection, report generation, and feedback loops.
-
-## Data Policy
-
-Raw ad reports, screenshots, exported Excel files, and local scratch files are not committed by default. Put sanitized examples under a future `agent/examples/` directory when needed.
+Keep real ad exports, browser profiles, API keys, databases, generated reports, and local run artifacts out of Git. Use the example configuration files as templates and keep real values in local ignored files.
